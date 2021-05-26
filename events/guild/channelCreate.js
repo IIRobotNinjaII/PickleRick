@@ -1,6 +1,6 @@
 const ServerModels = require('../../models/guildInfoSchema')
 
-module.exports = async(client,discord,channel) =>{
+module.exports = async(Discord,client,channel) =>{
     if(channel.type === 'dm')
         return;
     try{

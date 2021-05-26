@@ -1,6 +1,6 @@
 const ReactionRoles = require('../../models/roleInfoSchema')
 
-module.exports = async(client,discord,reaction,user) =>{
+module.exports = async(Discord,client,reaction,user) =>{
     if(reaction.message.partial) await reaction.message.fetch();
     if(reaction.partial) await reaction.fetch();
     if(user.bot) return;
