@@ -2,6 +2,7 @@ require('dotenv').config();
 module.exports = {
     name : 'help',
     description : "Help page",
+    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
     async execute(client,message,args,Discord){
         var i = 1;
         const embed = new Discord.MessageEmbed()

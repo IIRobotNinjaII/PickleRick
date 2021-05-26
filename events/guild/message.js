@@ -29,7 +29,7 @@ module.exports = async(Discord , client , message) =>{
     if(message.content.startsWith('GG') && message.author.id == '408118511026831360' && message.channel.id == extrainfo.rankID){
         let broadcast = message.content.slice(0,message.content.length-1);
         broadcast = broadcast.split(' ')
-        let ranks = parseInt(broadcast[8],10);
+        let ranks = parseInt(broadcast[7],10);
         let levelData = await LevelInfo.findOne({ serverID : message.guild.id , level : ranks});
         if(levelData){
             let user = message.mentions.users.first();
