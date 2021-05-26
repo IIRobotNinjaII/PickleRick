@@ -13,8 +13,8 @@ module.exports = {
             embed.addField(`${i} - ${cmd.name}`,`${cmd.description}`)
             i++;
         })
-        embed.addField("Bot Source Code","[Github](https://www.google.com/)",true);
-        embed.addField("Bot Invite","[Click here](https://www.google.com/)",true);
+        embed.addField("Bot Source Code","[Github](https://github.com/IIRobotNinjaII/PickleRick)",true);
+        embed.addField("Bot Invite","[Click here](https://discord.com/oauth2/authorize?client_id=756214368839925850&scope=bot&permissions=8)",true);
         message.channel.send(embed);
     }
 }
