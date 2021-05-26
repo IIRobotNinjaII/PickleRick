@@ -4,7 +4,7 @@ module.exports = {
     description : 'Lists all XP level rewards',
     permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
-        let levelDatas = await LevelInfo.find({serverID:message.guild.id});
+        let levelDatas = await LevelInfo.find({serverID:message.guild.id}).sort({level : 1});
         if(levelDatas){
             var counter = 0;
             let embeds = [];
