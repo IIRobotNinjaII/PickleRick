@@ -1,7 +1,7 @@
 module.exports = {
     name : 'view_server',
     description : 'Lists server details',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
         if(serverData){
             const embed = new Discord.MessageEmbed()

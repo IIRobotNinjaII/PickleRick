@@ -1,7 +1,7 @@
 module.exports = {
     name : 'set_reaction',
     description : 'Adds emojis to all images sent on a channel',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         const filter = m => m.author.id === message.author.id;

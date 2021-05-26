@@ -1,7 +1,7 @@
 module.exports = {
     name : 'set_level',
     description : 'Set the rank up channel',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         const filter = m => m.author.id === message.author.id;

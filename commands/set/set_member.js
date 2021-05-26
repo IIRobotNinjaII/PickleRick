@@ -1,7 +1,7 @@
 module.exports = {
     name : 'set_member',
     description : 'Sets the member role for the server',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData){
 
         const filter = m => m.author.id === message.author.id;

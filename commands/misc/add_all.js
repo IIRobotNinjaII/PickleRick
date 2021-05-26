@@ -1,7 +1,7 @@
 module.exports = {
     name : 'add_all',
     description : "Gives the member role to everyone who doesn't have it.",
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     cooldown : 15 * 60 * 10000,
     async execute(client,message,args,Discord,serverData){
         if(!serverData.memberID){

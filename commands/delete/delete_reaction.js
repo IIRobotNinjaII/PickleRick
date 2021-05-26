@@ -2,7 +2,7 @@ const LevelInfo = require('../../models/XPlevelSchema')
 module.exports = {
     name : 'delete_reaction',
     description : 'Remove channels from reaction list',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         const filter = m => m.author.id === message.author.id;

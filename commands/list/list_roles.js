@@ -2,7 +2,7 @@ const RoleInfo = require('../../models/roleInfoSchema')
 module.exports = {
     name : 'list_roles',
     description : 'Lists all reaction roles',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord){
         let roleDatas = await RoleInfo.find({serverID:message.guild.id});
         if(roleDatas){

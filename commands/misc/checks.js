@@ -1,7 +1,7 @@
 module.exports = {
     name : 'checks',
     description : "Tells you who all don't have the member role.",
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     cooldown : 15 * 60 * 10000,
     async execute(client,message,args,Discord,serverData){
         if(!serverData.memberID){

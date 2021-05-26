@@ -2,7 +2,7 @@ const LevelInfo = require('../../models/XPlevelSchema')
 module.exports = {
     name : 'delete_level',
     description : 'Deletes XP level rewards',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord){
 
         const filter = m => m.author.id === message.author.id;

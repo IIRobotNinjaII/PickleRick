@@ -1,7 +1,7 @@
 module.exports = {
     name : 'check',
     description : "Reminds member to react to rules.",
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     cooldown : 15 * 60 * 10000,
     async execute(client,message,args,Discord,serverData,extrainfo){
         if(!serverData.memberID){

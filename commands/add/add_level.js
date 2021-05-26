@@ -2,7 +2,7 @@ const LevelInfo = require('../../models/XPlevelSchema')
 module.exports = {
     name : 'add_level',
     description : 'Add XP level rewards',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         if(!extrainfo.rankID){

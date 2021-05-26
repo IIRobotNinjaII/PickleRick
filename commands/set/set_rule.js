@@ -1,7 +1,7 @@
 module.exports = {
     name : 'set_rule',
     description : 'Sets the rule message',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         const filter = m => m.author.id === message.author.id;

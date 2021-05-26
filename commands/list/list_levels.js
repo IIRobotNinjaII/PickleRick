@@ -2,7 +2,7 @@ const LevelInfo = require('../../models/XPlevelSchema')
 module.exports = {
     name : 'list_levels',
     description : 'Lists all XP level rewards',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
         let levelDatas = await LevelInfo.find({serverID:message.guild.id});
         if(levelDatas){

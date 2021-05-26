@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const guildInfoSchema = new mongoose.Schema({
-    serverID : {type : String , require : true ,index : { unique : true }},
+    serverID : {type : String},
     memberID : {type : String},
     lock : {type : Number , default : 0},
 });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const extraguildInfoSchema = new mongoose.Schema({
-    serverID : {type : String , require : true ,index : { unique : true }},
+    serverID : {type : String},
     rankID : {type : String},
     reactionID : {type : [String]},
     rulelink : {type : String}

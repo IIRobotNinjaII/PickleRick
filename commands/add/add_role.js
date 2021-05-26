@@ -2,7 +2,7 @@ const ReactionRoles = require('../../models/roleInfoSchema')
 module.exports = {
     name : 'add_role',
     description : 'Add Reaction Role',
-    permissions : ["ADMINISTRATOR","MANAGE_CHANNELS"],
+    permissions : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord){
         const filter = m => m.author.id === message.author.id;
         
