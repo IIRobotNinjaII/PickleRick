@@ -70,19 +70,21 @@ module.exports = async(Discord , client , message) =>{
         return;
         
     const ValidPermissions = ["ADMINISTRATOR", "CREATE_INSTANT_INVITE", "KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD", "ADD_REACTIONS", "VIEW_AUDIT_LOG", "PRIORITY_SPEAKER", "STREAM", "VIEW_CHANNEL", "SEND_MESSAGES", "SEND_TTS_MESSAGES", "MANAGE_MESSAGES", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "MENTION_EVERYONE", "USE_EXTERNAL_EMOJIS", "VIEW_GUILD_INSIGHTS", "CONNECT", "SPEAK", "MUTE_MEMBERS", "DEAFEN_MEMBERS", "MOVE_MEMBERS", "USE_VAD", "CHANGE_NICKNAME", "MANAGE_NICKNAMES", "MANAGE_ROLES", "MANAGE_WEBHOOKS", "MANAGE_EMOJIS"]
-
-    if(command.permissions.length){
-        let invalid_perms =[];
-        for(const perm of command.permissions){
-            if(!ValidPermissions.includes(perm)){
-                return console.log(`Invalid Permissions ${perm}`);
+    
+    if(command.permissions){
+        if(command.permissions.length){
+            let invalid_perms =[];
+            for(const perm of command.permissions){
+                if(!ValidPermissions.includes(perm)){
+                    return console.log(`Invalid Permissions ${perm}`);
+                }
+                if(!message.member.hasPermission(perm)){
+                    invalid_perms.push(perm);
+                }
             }
-            if(!message.member.hasPermission(perm)){
-                invalid_perms.push(perm);
+            if(invalid_perms.length){
+                return message.reply("Sorry you don't have the perms to execute that.")
             }
-        }
-        if(invalid_perms.length){
-            return message.reply("Sorry you don't have the perms to execute that.")
         }
     }
 
