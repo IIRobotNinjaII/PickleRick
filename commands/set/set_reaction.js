@@ -1,3 +1,4 @@
+const {insertExtraInfo} = require('../../events/client/ready')
 module.exports = {
     name : 'set_reaction',
     description : 'Adds emojis to all images sent on a channel',
@@ -24,6 +25,7 @@ module.exports = {
                         }
                     })
                     await extrainfo.save();
+                    insertExtraInfo(message.guild.id,extrainfo);
                     message.channel.send("Saved Successfully, Have a nice day :)")
                 }
                 else{

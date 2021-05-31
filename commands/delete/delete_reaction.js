@@ -1,4 +1,5 @@
 const LevelInfo = require('../../models/XPlevelSchema')
+const {insertExtraInfo} = require('../../events/client/ready')
 module.exports = {
     name : 'delete_reaction',
     description : 'Remove channels from reaction list',
@@ -23,6 +24,7 @@ module.exports = {
                         }
                     }
                     await extrainfo.save();
+                    insertExtraInfo(message.guild.id,extrainfo);
                     message.channel.send('Deleted Successfully , Have a nice day :)');
                 }else{
                     message.channel.send('No channels were tagged');

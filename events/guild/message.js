@@ -2,25 +2,16 @@ const cooldowns = new Map();
 require('dotenv').config();
 const ServerModels = require('../../models/guildInfoSchema')
 const ExtraServerInfo = require('../../models/extraguildInfoSchema')
+const {getExtraInfo} = require('../client/ready')
 const LevelInfo = require('../../models/XPlevelSchema')
 module.exports = async(Discord , client , message) =>{
     
     if(message.channel.type === 'dm')
         return;
 
+    let extrainfo = getExtraInfo(message.guild.id);
+
     const prefix = process.env.PREFIX;
-    try{
-        extrainfo = await ExtraServerInfo.findOne({serverID : message.guild.id});
-        if(!extrainfo){
-            let profile = await ExtraServerInfo.create({
-                serverID : message.guild.id,
-            });
-            profile.save();
-            extrainfo = profile;
-        }
-    }catch (err){
-        console.log(err);
-    }
 
     if ((message.content.includes('https') || message. attachments. size > 0 || message.embeds.length !== 0) && extrainfo.reactionID.includes(message.channel.id)){
         message.react('⬆️');
@@ -49,6 +40,7 @@ module.exports = async(Discord , client , message) =>{
 
     if(!message.content.startsWith(prefix) || message.author.bot) return
 
+
     try{
         serverData = await ServerModels.findOne({ serverID : message.guild.id});
         if(!serverData){
@@ -62,6 +54,20 @@ module.exports = async(Discord , client , message) =>{
         console.log(err);
     }
 
+    
+    try{
+        extrainfo = await ExtraServerInfo.findOne({serverID : message.guild.id});
+        if(!extrainfo){
+            let profile = await ExtraServerInfo.create({
+                serverID : message.guild.id,
+            });
+            profile.save();
+            extrainfo = profile;
+        }
+    }catch (err){
+        console.log(err);
+    }
+
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
     const command = client.commands.get(cmd);
@@ -70,7 +76,7 @@ module.exports = async(Discord , client , message) =>{
         return;
         
     const ValidPermissions = ["ADMINISTRATOR", "CREATE_INSTANT_INVITE", "KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD", "ADD_REACTIONS", "VIEW_AUDIT_LOG", "PRIORITY_SPEAKER", "STREAM", "VIEW_CHANNEL", "SEND_MESSAGES", "SEND_TTS_MESSAGES", "MANAGE_MESSAGES", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "MENTION_EVERYONE", "USE_EXTERNAL_EMOJIS", "VIEW_GUILD_INSIGHTS", "CONNECT", "SPEAK", "MUTE_MEMBERS", "DEAFEN_MEMBERS", "MOVE_MEMBERS", "USE_VAD", "CHANGE_NICKNAME", "MANAGE_NICKNAMES", "MANAGE_ROLES", "MANAGE_WEBHOOKS", "MANAGE_EMOJIS"]
-    
+
     if(command.permissions){
         if(command.permissions.length){
             let invalid_perms =[];
@@ -87,7 +93,6 @@ module.exports = async(Discord , client , message) =>{
             }
         }
     }
-
     if(!cooldowns.has(command.name)){
         cooldowns.set(command.name,new Discord.Collection());
     }

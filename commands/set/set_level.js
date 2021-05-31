@@ -1,3 +1,4 @@
+const {insertExtraInfo} = require('../../events/client/ready')
 module.exports = {
     name : 'set_level',
     description : 'Set the rank up channel',
@@ -18,6 +19,7 @@ module.exports = {
                 if(collected.first().mentions.channels.size > 0){
                     extrainfo.rankID = collected.first().mentions.channels.first().id;
                     await extrainfo.save();
+                    insertExtraInfo(message.guild.id,extrainfo);
                     message.channel.send('Saved Successfully , Have a nice day :)')
                 }
             }
