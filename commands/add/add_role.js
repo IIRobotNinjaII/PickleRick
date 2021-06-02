@@ -14,9 +14,8 @@ module.exports = {
         let roleData;
         let data = [];
         let counter = 0;
-        let questions = ["Enter a nickname (Ensure it hasn't been used before) :","Copy and paste message link : ","Tag role : ","Enter emoji (Ensure it is not a custom emoji): "];
 
-        message.channel.send(questions[0]);
+        message.channel.send("Enter a nickname (Ensure it hasn't been used before) :");
 
         collector.on('collect',async(collected) => {
             switch(counter){
@@ -31,6 +30,7 @@ module.exports = {
                     else{
                         data.push(arg)
                         counter = 1;
+                        message.channel.send("Copy and paste message link : ");
                     }
                     break;
                 }
@@ -42,6 +42,7 @@ module.exports = {
                                 data.push(parts[5])
                                 data.push(parts[6])
                                 counter = 2;
+                                message.channel.send("Tag role : ");
                             }
                             else{
                                 message.channel.send('Message link is from a different server');
@@ -72,35 +73,41 @@ module.exports = {
                         collector.stop();
                         return;
                     }
+
+                    message.channel.send("React to this message with an  emoji : ").then(msg => {
+                        let emoji_filter = (reaction,user) => user.id === message.author.id;
+                        let emoji_collector = msg.createReactionCollector(emoji_filter,{
+                            time:20000 , maxEmojis : 1
+                        })
+                        emoji_collector.on('end',collected_emoji => {
+                            if(collected_emoji.size>0){
+                                if(!collected_emoji.first().emoji.guild || collected_emoji.first().emoji.guild.id === message.guild.id){
+                                    data.push(collected_emoji.first().emoji)
+                                    counter = 4;
+                                }else{
+                                    message.channel.send("You reacted with a custom emoji from another server:(");
+                                }
+                            }
+                            collector.stop();
+                            return;
+                        })
+                    })
                     break;
-                }
-                case 3:{
-                    const extractEmoji = require('extract-emoji');
-                    let emojis = extractEmoji.extractEmoji(collected.content);
-                    if(emojis.length > 0){
-                        data.push(emojis[0]);
-                        counter = 4;
-                        collector.stop();
-                        return;
-                    }
-                    else{
-                        message.channel.send("You didn't send any emojis");
-                        collector.stop();
-                        return;
-                    }
-                    break;
+
                 }
             }
-            message.channel.send(questions[counter]);
         })
 
+
+
+        
         collector.on('end',async(m)=>{  
              
             if(m.size ==0 || m.size <=counter && counter!=4){
                 message.channel.send("Time ran out")
             }  
 
-            if(counter == 4){
+            if(data.length == 5){
                 try{
                     let channel = await message.guild.channels.cache.get(data[1]);
                     await channel.messages.fetch();
@@ -112,7 +119,7 @@ module.exports = {
                         roleID : data[3],
                         messageID : data[2],
                         channelID : data[1],
-                        reaction : data[4]
+                        reaction : data[4].name
                     })
                     await roleData.save()
                 }catch{
@@ -121,7 +128,6 @@ module.exports = {
    
             }
             
-  
         })
 
     }
