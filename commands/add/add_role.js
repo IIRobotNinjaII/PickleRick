@@ -81,11 +81,11 @@ module.exports = {
                         })
                         emoji_collector.on('end',collected_emoji => {
                             if(collected_emoji.size>0){
-                                if(!collected_emoji.first().emoji.guild || collected_emoji.first().emoji.guild.id === message.guild.id){
+                                if(!collected_emoji.first().emoji.guild || (collected_emoji.first().emoji.guild.id === message.guild.id && !collected_emoji.first().emoji.animated)){
                                     data.push(collected_emoji.first().emoji)
                                     counter = 4;
                                 }else{
-                                    message.channel.send("You reacted with a custom emoji from another server:(");
+                                    message.channel.send("You reacted with a custom emoji from another server or you used an animated emoji :(");
                                 }
                             }
                             collector.stop();
