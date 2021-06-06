@@ -3,6 +3,7 @@ module.exports = {
     name : 'add_level',
     description : 'Add XP level rewards',
     permissions : ["MANAGE_GUILD"],
+    perms : ["MANAGE_GUILD"],
     async execute(client,message,args,Discord,serverData,extrainfo){
 
         if(!extrainfo.rankID){
@@ -53,6 +54,14 @@ module.exports = {
                 }
                 case 2:{
                     if(collected.mentions.roles.size >0){
+                        try{
+                            await message.guild.me.roles.add(collected.mentions.roles.first().id);
+                            await message.guild.me.roles.remove(collected.mentions.roles.first().id);
+                        }catch{
+                            message.channel.send('Sorry the role is higher than my role , please rectify this and try running the command again')
+                            collector.stop();
+                            return;
+                        }
                         data.push(collected.mentions.roles.first().id)
                         counter = 3;
                     }

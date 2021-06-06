@@ -25,3 +25,7 @@ module.exports.getExtraInfo = (serverID) => {
 module.exports.insertExtraInfo = (serverID , data) =>{
     return extra_infos_cache.set(serverID,data);
 }
+
+module.exports.deleteExtraInfo = (serverID) =>{
+    return extra_infos_cache.delete(serverID);
+}

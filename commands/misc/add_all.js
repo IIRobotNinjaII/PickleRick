@@ -2,12 +2,22 @@ module.exports = {
     name : 'add_all',
     description : "Gives the member role to everyone who doesn't have it.",
     permissions : ["MANAGE_GUILD"],
+    perms : ["MANAGE_GUILD"],
     cooldown : 15 * 60 * 10000,
     async execute(client,message,args,Discord,serverData){
         if(!serverData.memberID){
             message.channel.send("Sorry you haven't set the member role , please run `&set_member` before running this command.")
             return;
         }           
+        
+        try{
+            await message.guild.me.roles.add(serverData.memberID);
+            await message.guild.me.roles.remove(serverData.memberID);
+        }catch{
+            message.channel.send('Sorry the member role is higher than my role , please rectify this and try running the command again')
+            return;
+        }
+        
         var i = 0; let text = '';
         let members;
         try{
