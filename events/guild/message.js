@@ -13,30 +13,36 @@ module.exports = async(Discord , client , message) =>{
 
     const prefix = process.env.PREFIX;
 
-    if ((message.content.includes('https') || message. attachments. size > 0 || message.embeds.length !== 0) && extrainfo.reactionID.includes(message.channel.id)){
-        message.react('⬆️');
-        message.react('⬇️');
+    if(extrainfo.reactionID){
+        if ((message.content.includes('https') || message. attachments. size > 0 || message.embeds.length !== 0) && extrainfo.reactionID.includes(message.channel.id)){
+            message.react('⬆️');
+            message.react('⬇️');
+        }
     }
-    if(message.content.startsWith('GG') && message.author.id == '408118511026831360' && message.channel.id == extrainfo.rankID){
-        let broadcast = message.content.slice(0,message.content.length-1);
-        broadcast = broadcast.split(' ')
-        let ranks = parseInt(broadcast[7],10);
-        let levelData = await LevelInfo.findOne({ serverID : message.guild.id , level : ranks});
-        if(levelData){
-            let user = message.mentions.users.first();
-            try{
-                let member = message.guild.members.cache.get(user.id);
-                await member.roles.add(levelData.roleID);
-                await user.send(levelData.message);
-            }catch{
-                console.log("missing perms");
-            }
 
-        }
-        else{
-            console.log('f');   
+    if(extrainfo.rankID){
+        if(message.content.startsWith('GG') && message.author.id == '408118511026831360' && message.channel.id == extrainfo.rankID){
+            let broadcast = message.content.slice(0,message.content.length-1);
+            broadcast = broadcast.split(' ')
+            let ranks = parseInt(broadcast[8],10);
+            let levelData = await LevelInfo.findOne({ serverID : message.guild.id , level : ranks});
+            if(levelData){
+                let user = message.mentions.users.first();
+                try{
+                    let member = message.guild.members.cache.get(user.id);
+                    await member.roles.add(levelData.roleID);
+                    await user.send(levelData.message);
+                }catch{
+                    console.log("missing perms");
+                }
+    
+            }
+            else{
+                console.log('f');   
+            }
         }
     }
+    
 
     if(!message.content.startsWith(prefix) || message.author.bot) return
 
@@ -93,6 +99,24 @@ module.exports = async(Discord , client , message) =>{
             }
         }
     }
+
+    if(command.perms){
+        if(command.perms){
+            let invalid_perms =[];
+            for(const perm of command.perms){
+                if(!ValidPermissions.includes(perm)){
+                    return console.log(`Invalid Permissions ${perm}`);
+                }
+                if(!message.guild.me.hasPermission(perm)){
+                    invalid_perms.push(perm);
+                }
+            }
+            if(invalid_perms.length){
+                return message.reply(`Sorry the bot does't have the \`${invalid_perms}\` permission to execute that.`)
+            }
+        }
+    }
+
     if(!cooldowns.has(command.name)){
         cooldowns.set(command.name,new Discord.Collection());
     }
