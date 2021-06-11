@@ -42,7 +42,7 @@ module.exports = {
                 let identifier = ' has ';
                 if(i>1) identifier = 's have ';
                 text+= `${i} member${identifier}been given the Member role.`
-                message.channel.send(`\`\`\`css\n${text}\`\`\``);
+                message.channel.send(`\`\`\`yaml\n${text}\`\`\``);
             }
             else{
                 message.channel.send(`Everyone has the member role.`);
