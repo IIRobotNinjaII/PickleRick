@@ -16,7 +16,6 @@ module.exports = async(Discord,client,reaction,user) =>{
             await reaction.message.guild.members.cache.get(user.id).send(role_add)
         }catch(Err){
             console.log('Error in adding role');
-            console.log(Err)
         }
     }
 
