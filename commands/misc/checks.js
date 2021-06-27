@@ -25,9 +25,9 @@ module.exports = {
         }finally{
             if(i>0){
                 let identifier = ' has ';
-                if(i>1) identifier = 's have';
+                if(i>1) identifier = 's have ';
                 text+= `${i} member${identifier}not reacted.`
-                message.channel.send(`\`\`\`yaml\n${text}\`\`\``);
+                message.channel.send(`${text}`);
             }
             else{
                 message.channel.send(`Everyone has the member role`);
