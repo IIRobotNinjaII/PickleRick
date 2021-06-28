@@ -2,7 +2,7 @@ module.exports = {
     name : 'checks',
     description : "Tells you who all don't have the member role.",
     permissions : ["MANAGE_GUILD"],
-    cooldown : 15 * 60 * 10000,
+    cooldown : 15 * 60 * 1000,
     async execute(client,message,args,Discord,serverData){
         if(!serverData.memberID){
             message.channel.send("Sorry you haven't set the member role , please run `&set_member` before running this command.")

@@ -2,7 +2,7 @@ module.exports = {
     name : 'check',
     description : "Reminds member to react to rules.",
     permissions : ["MANAGE_GUILD"],
-    cooldown : 15 * 60 * 10000,
+    cooldown : 15 * 60 * 1000,
     async execute(client,message,args,Discord,serverData,extrainfo){
         if(!serverData.memberID){
             message.channel.send("Sorry you haven't set the member role , please run `&set_member` before running this command.")

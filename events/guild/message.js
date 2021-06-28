@@ -123,11 +123,10 @@ module.exports = async(Discord , client , message) =>{
 
     const current_time = Date.now();
     const time_stamps = cooldowns.get(command.name);
-    const cooldown_amount = command.cooldown;
+    const cooldown_amount = command.cooldown ;
 
-    if(time_stamps.has(message.author.id)){
-        const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
-
+    if(time_stamps.has(message.guild.id)){
+        const expiration_time = time_stamps.get(message.guild.id) + cooldown_amount;
         if(current_time < expiration_time){
             const time_left = (expiration_time - current_time) /60000;
 
@@ -135,8 +134,8 @@ module.exports = async(Discord , client , message) =>{
         }
     }
 
-    time_stamps.set(message.author.id,current_time)
-    setTimeout(()=> time_stamps.delete(message.author.id),cooldown_amount);
+    time_stamps.set(message.guild.id,current_time)
+    setTimeout(()=> time_stamps.delete(message.guild.id),cooldown_amount);
 
     try{
         command.execute(client,message,args,Discord,serverData,extrainfo);
