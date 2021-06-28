@@ -123,7 +123,7 @@ module.exports = async(Discord , client , message) =>{
 
     const current_time = Date.now();
     const time_stamps = cooldowns.get(command.name);
-    const cooldown_amount = command.cooldown * 1000;
+    const cooldown_amount = command.cooldown;
 
     if(time_stamps.has(message.author.id)){
         const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
