@@ -131,7 +131,7 @@ module.exports = async(Discord , client , message) =>{
         if(current_time < expiration_time){
             const time_left = (expiration_time - current_time) /60000;
 
-            return message.reply(`Please wait ${time_left.toFixed(1)} more seconds before using ${command.name}`);
+            return message.reply(`Please wait ${time_left.toFixed(2)} more minutes before using ${command.name}`);
         }
     }
 
