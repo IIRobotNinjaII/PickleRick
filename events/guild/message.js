@@ -129,7 +129,7 @@ module.exports = async(Discord , client , message) =>{
         const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
 
         if(current_time < expiration_time){
-            const time_left = (expiration_time - current_time) /1000;
+            const time_left = (expiration_time - current_time) /60000;
 
             return message.reply(`Please wait ${time_left.toFixed(1)} more seconds before using ${command.name}`);
         }
